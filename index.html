@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>6162 Consulting | AI strategy, governance and implementation for local businesses</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@500;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#16222e;--muted:#4f5d6b;--bg:#f6f8f7;--panel:#e3ebe8;--line:#c5d2cd;--accent:#1f6f5c;--accent-ink:#fff;--signal:#e0a526;--card:#fff;--mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace}
+@media (prefers-color-scheme:dark){:root{--ink:#e8eeec;--muted:#a3b2ad;--bg:#10181d;--panel:#18242b;--line:#2c3c45;--accent:#4fb99d;--accent-ink:#0b1a16;--signal:#e0a526;--card:#15212a}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font:17px/1.6 "DM Sans",system-ui,sans-serif;color:var(--ink);background:var(--bg)}
+h1,h2,h3{font-family:"Source Serif 4",Georgia,serif;font-weight:600;line-height:1.15;margin:0}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--signal);outline-offset:2px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+section{padding:72px 0}
+h2{font-size:clamp(1.7rem,4vw,2.4rem);margin-bottom:12px}
+.lede{color:var(--muted);max-width:60ch;margin:0 0 32px}
+
+header.top{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{font-family:"Source Serif 4",serif;font-weight:600;font-size:1.2rem;text-decoration:none}
+nav a{margin-left:20px;text-decoration:none;color:var(--muted);font-weight:500}
+nav a:hover{color:var(--ink)}
+@media(max-width:640px){nav a.hide-sm{display:none}}
+
+.btn{display:inline-block;background:var(--accent);color:var(--accent-ink);border:0;border-radius:6px;padding:13px 22px;font:700 1rem "DM Sans",sans-serif;text-decoration:none;cursor:pointer}
+.btn:hover{filter:brightness(1.1)}
+.btn.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 2px var(--line)}
+
+/* monospace emphasis */
+.k{font-family:var(--mono);font-size:.84em;font-weight:500;letter-spacing:-.01em;background:color-mix(in srgb,var(--accent) 14%,transparent);padding:.08em .38em;border-radius:3px;white-space:nowrap}
+.hero h1 .k{font-size:.78em;font-weight:700;padding:0 .22em}
+.ledger dd,.metrics span,.acc-head small,.principle p strong{font-family:var(--mono);font-weight:500;font-size:.86em}
+.ledger dd{font-weight:700}
+.principle p strong{color:var(--accent)}
+.acc-body b{font-family:var(--mono);font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;color:var(--accent);margin-right:4px}
+.test .k{background:color-mix(in srgb,var(--signal) 30%,transparent)}
+
+/* hero */
+.hero{position:relative;overflow:hidden;padding:88px 0 72px;background:var(--panel);border-bottom:1px solid var(--line)}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 80% at 85% 20%,color-mix(in srgb,var(--accent) 18%,transparent),transparent 70%);pointer-events:none}
+#net{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;-webkit-mask-image:linear-gradient(to right,rgba(0,0,0,.3),#000 65%);mask-image:linear-gradient(to right,rgba(0,0,0,.3),#000 65%)}
+.hero .wrap{position:relative;z-index:1}
+#cases,#contact{background-image:radial-gradient(color-mix(in srgb,var(--line) 75%,transparent) 1.2px,transparent 1.4px);background-size:26px 26px}
+
+.hero .wrap{display:grid;grid-template-columns:1.3fr 1fr;gap:48px;align-items:center}
+.hero h1{font-size:clamp(2.3rem,6vw,4rem);letter-spacing:-.02em}
+.hero p{font-size:1.15rem;color:var(--muted);max-width:46ch;margin:20px 0 28px}
+.hero .actions{display:flex;gap:12px;flex-wrap:wrap}
+.ledger{background:var(--card);border:1px solid var(--line);border-left:6px solid var(--signal);border-radius:4px;padding:22px}
+.ledger h3{font-size:1.1rem;margin-bottom:14px}
+.ledger dl{margin:0}
+.ledger div{display:flex;justify-content:space-between;gap:16px;padding:11px 0;border-top:1px solid var(--line)}
+.ledger dt{color:var(--muted)}
+.ledger dd{margin:0;font-weight:700;text-align:right}
+@media(max-width:820px){.hero .wrap{grid-template-columns:1fr}.hero{padding:56px 0}}
+
+/* philosophy */
+#philosophy{background:var(--bg);border-bottom:1px solid var(--line)}
+.principles{display:grid;grid-template-columns:repeat(3,1fr);border-top:2px solid var(--ink);margin-top:8px}
+.principle{padding:30px 28px 32px 0}
+.principle+.principle{padding-left:28px;border-left:1px solid var(--line)}
+.principle svg{width:48px;height:48px;color:var(--accent);margin-bottom:16px}
+.principle h3{font-size:1.35rem;margin-bottom:10px}
+.principle p{margin:0;color:var(--muted)}
+.principle p strong{color:var(--ink)}
+.test{display:flex;gap:18px;align-items:center;margin-top:12px;padding:22px 24px;background:var(--panel);border-left:6px solid var(--signal);border-radius:4px}
+.test p{margin:0;font:600 clamp(1.1rem,2.4vw,1.4rem)/1.35 "Source Serif 4",Georgia,serif}
+@media(max-width:820px){.principles{grid-template-columns:1fr}.principle,.principle+.principle{padding:26px 0;border-left:0}.principle+.principle{border-top:1px solid var(--line)}}
+
+/* accordion */
+.acc{border-top:1px solid var(--line)}
+.acc-item{border-bottom:1px solid var(--line)}
+.acc-head{width:100%;display:flex;justify-content:space-between;align-items:center;gap:16px;background:none;border:0;color:inherit;text-align:left;padding:20px 4px;cursor:pointer;font:inherit}
+.acc-head strong{font:600 1.2rem "Source Serif 4",serif;display:block}
+.acc-head small{color:var(--muted)}
+.chev{flex:none;width:12px;height:12px;border-right:3px solid var(--accent);border-bottom:3px solid var(--accent);transform:rotate(45deg);transition:transform .25s}
+.acc-head[aria-expanded="true"] .chev{transform:rotate(-135deg)}
+.acc-body{display:none;padding:0 4px 24px}
+.acc-body p{margin:0 0 12px;max-width:68ch}
+.metrics{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.metrics span{background:var(--panel);border-radius:4px;padding:6px 12px;font-weight:700;font-size:.95rem}
+
+
+/* contact */
+.contact-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:48px}
+@media(max-width:820px){.contact-grid{grid-template-columns:1fr;gap:28px}}
+form{display:grid;gap:16px}
+label{font-weight:700;font-size:.95rem;display:block;margin-bottom:6px}
+input,select,textarea{width:100%;font:inherit;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:6px;padding:12px}
+textarea{min-height:140px;resize:vertical}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:560px){.row{grid-template-columns:1fr}}
+.err{color:#c0392b;font-size:.88rem;margin-top:4px;display:none}
+@media(prefers-color-scheme:dark){.err{color:#ff8a7a}}
+.invalid input,.invalid textarea{border-color:#c0392b}
+.invalid .err{display:block}
+.hp{position:absolute;left:-9999px}
+#status{padding:14px;border-radius:6px;display:none;font-weight:500}
+#status.ok{display:block;background:var(--panel);border-left:5px solid var(--accent)}
+#status.fail{display:block;background:var(--panel);border-left:5px solid #c0392b}
+footer{padding:32px 0;color:var(--muted);font-size:.9rem;border-top:1px solid var(--line)}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.chev{transition:none}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#top">6162 Consulting</a>
+    <nav>
+      <a class="hide-sm" href="#philosophy">Philosophy</a>
+      <a class="hide-sm" href="#cases">Case studies</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <canvas id="net" aria-hidden="true"></canvas>
+    <div class="wrap">
+      <div>
+        <h1>Practical <span class="k">AI</span> for local businesses, without the hype.</h1>
+        <p>6162 Consulting helps local businesses decide where AI belongs, set the rules for using it safely, and put it to work. <span class="k">Strategy</span>, <span class="k">governance</span> and <span class="k">implementation</span> from one small team.</p>
+        <div class="actions">
+          <a class="btn" href="#contact">Book a free consultation</a>
+          <a class="btn ghost" href="#cases">See our results</a>
+        </div>
+      </div>
+      <aside class="ledger" aria-label="Recent results">
+        <h3>Recent client results</h3>
+        <dl>
+          <div><dt>Admin time saved</dt><dd>22 hrs per week</dd></div>
+          <div><dt>Customer reply time</dt><dd>4 hrs to 10 min</dd></div>
+          <div><dt>Time to first live tool</dt><dd>6 weeks</dd></div>
+          <div><dt>Clients with an AI policy</dt><dd>100%</dd></div>
+        </dl>
+      </aside>
+    </div>
+  </section>
+
+  <section id="philosophy">
+    <div class="wrap">
+      <h2>Our philosophy: <span class="k">right-sized AI</span></h2>
+      <p class="lede">Most local businesses don’t need the biggest model or the longest roadmap. They need the right tool for the job, set up so it keeps working as they grow.</p>
+      <div class="principles">
+        <div class="principle">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="11" cy="37" r="5"/><circle cx="24" cy="30" r="9" fill="currentColor" fill-opacity=".18"/><circle cx="34" cy="16" r="13"/></svg>
+          <h3>Right-sized to your business</h3>
+          <p>We match the solution to your <strong>budget, team and data</strong>. Sometimes that’s a full automation, sometimes a simple workflow or an off-the-shelf tool, and sometimes the honest answer is that you don’t need AI for this at all.</p>
+        </div>
+        <div class="principle">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><rect x="5" y="30" width="16" height="13" rx="2"/><rect x="25" y="30" width="16" height="13" rx="2"/><rect x="15" y="14" width="16" height="13" rx="2" fill="currentColor" fill-opacity=".18"/><path d="M38 6v10M33 11h10" stroke-linecap="round"/></svg>
+          <h3>Bespoke, and built to scale</h3>
+          <p>Every solution is <strong>tailored to how you actually work</strong>, yet built on modular, standards-based foundations: open integrations, documented processes and clear ownership. New use cases or locations can be added without starting over.</p>
+        </div>
+        <div class="principle">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="9" cy="24" r="5"/><circle cx="39" cy="24" r="7" fill="currentColor" fill-opacity=".18"/><path d="M15 24h10c4 0 4-9 8-9M15 24h10c4 0 4 9 8 9" stroke-linecap="round"/></svg>
+          <h3>Designed for the problem, not the technology</h3>
+          <p>We start with the <strong>outcome you need</strong>, then choose the technology to deliver it, never the other way around. We’re vendor-neutral, so you won’t be steered toward a tool just because it’s popular.</p>
+        </div>
+      </div>
+      <div class="test"><p>Our test: would you still choose this solution if it weren’t <span class="k">called AI</span>?</p></div>
+    </div>
+  </section>
+
+  <section id="cases">
+    <div class="wrap">
+      <h2>Case studies</h2>
+      <p class="lede">Select a project to see the problem, what we did, and what changed.</p>
+      <div class="acc">
+        <div class="acc-item">
+          <button class="acc-head" aria-expanded="false" aria-controls="c1"><span><strong>E-commerce company grows sales 150% with AI-driven marketing</strong><small>Marketing · 6 months</small></span><i class="chev"></i></button>
+          <div class="acc-body" id="c1">
+            <p><b>Problem.</b> Ad spend kept climbing while conversion stayed flat. Campaigns were built by hand and sent the same message to every customer.</p>
+            <p><b>What we did.</b> We segmented customers with predictive models, automated personalized email and ad creative testing, and set up a weekly review loop so the team could act on what was working.</p>
+            <div class="metrics"><span>Sales +150%</span><span>Personalized campaigns at scale</span></div>
+          </div>
+        </div>
+        <div class="acc-item">
+          <button class="acc-head" aria-expanded="false" aria-controls="c2"><span><strong>Multinational financial services firm saves $3 billion over five years</strong><small>Cost reduction · 5-year program</small></span><i class="chev"></i></button>
+          <div class="acc-body" id="c2">
+            <p><b>Problem.</b> The same manual processes were duplicated across regions, driving up operating and compliance costs.</p>
+            <p><b>What we did.</b> We mapped the highest-volume back-office and compliance workflows, automated the best candidates, consolidated overlapping tools, and put an AI governance framework in place to keep the rollout controlled.</p>
+            <div class="metrics"><span>$3B saved over 5 years</span><span>Governed rollout across regions</span></div>
+          </div>
+        </div>
+        <div class="acc-item">
+          <button class="acc-head" aria-expanded="false" aria-controls="c3"><span><strong>Manhattan plumbing firm lifts margins by 70%</strong><small>Local business · Margin improvement</small></span><i class="chev"></i></button>
+          <div class="acc-body" id="c3">
+            <p><b>Problem.</b> Dispatch and routing were done by hand, quotes were slow, and jobs were often underpriced.</p>
+            <p><b>What we did.</b> We introduced AI-assisted dispatch and routing, faster quoting based on job history, and automated follow-ups and invoicing.</p>
+            <div class="metrics"><span>Margins +70%</span><span>Fewer wasted truck hours</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap contact-grid">
+      <div>
+        <h2>Tell us what you’re working on</h2>
+        <p class="lede">We reply within one business day with next steps. No sales script.</p>
+        <p><b>Email</b><br><a href="mailto:hello@example.com">hello@example.com</a></p>
+        <p><b>Office hours</b><br>Monday to Friday, 9:00 to 17:30</p>
+      </div>
+      <form id="contactForm" novalidate>
+        <div class="row">
+          <div class="field"><label for="name">Your name</label><input id="name" name="name" autocomplete="name" required><div class="err">Enter your name.</div></div>
+          <div class="field"><label for="email">Work email</label><input id="email" name="email" type="email" autocomplete="email" required><div class="err">Enter a valid email address.</div></div>
+        </div>
+        <div class="field"><label for="company">Business name</label><input id="company" name="company" autocomplete="organization"></div>
+        <div class="field"><label for="service">What do you need help with?</label>
+          <select id="service" name="service"><option>AI strategy</option><option>AI governance and policy</option><option>AI implementation</option><option>Not sure yet</option></select></div>
+        <div class="field"><label for="message">Message</label><textarea id="message" name="message" required></textarea><div class="err">Tell us a little about your project.</div></div>
+        <input class="hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button class="btn" type="submit" id="send">Send message</button>
+        <div id="status" role="status" aria-live="polite"></div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">© 2026 6162 Consulting. All rights reserved.</div></footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+/* ---- CONFIGURE EMAIL DELIVERY ----
+   Browsers can't send email on their own; the form posts to a service that does.
+   Option A (easiest): create a free form at formspree.io for your address and paste
+   its URL below (e.g. "https://formspree.io/f/abcdwxyz"). Emails go to the address
+   you register there.
+   Option B: point it at your own server script that sends mail.
+   If left empty, the form opens the visitor's email app addressed to RECIPIENT. */
+var FORM_ENDPOINT = "";
+var RECIPIENT = "hello@example.com";
+
+$(function () {
+  // Accordion: one open at a time
+  $(".acc-head").on("click", function () {
+    var $btn = $(this), open = $btn.attr("aria-expanded") === "true";
+    $(".acc-head").attr("aria-expanded", "false").next(".acc-body").slideUp(220);
+    if (!open) { $btn.attr("aria-expanded", "true").next(".acc-body").slideDown(220); }
+  });
+
+  // Contact form
+  var $form = $("#contactForm"), $status = $("#status");
+  function validate() {
+    var ok = true;
+    $form.find("[required]").each(function () {
+      var $f = $(this), v = $.trim($f.val());
+      var good = v.length > 0 && (this.type !== "email" || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v));
+      $f.closest(".field").toggleClass("invalid", !good);
+      if (!good) { ok = false; }
+    });
+    return ok;
+  }
+  $form.on("submit", function (e) {
+    e.preventDefault();
+    $status.removeClass("ok fail").hide();
+    if (!validate()) { $form.find(".invalid input, .invalid textarea").first().focus(); return; }
+    if ($form.find("[name=_gotcha]").val()) { return; } // spam trap
+
+    var data = $form.serialize();
+    if (!FORM_ENDPOINT) {
+      var body = "Name: " + $("#name").val() + "\nEmail: " + $("#email").val() +
+        "\nCompany: " + $("#company").val() + "\nTopic: " + $("#service").val() + "\n\n" + $("#message").val();
+      window.location.href = "mailto:" + RECIPIENT + "?subject=" +
+        encodeURIComponent("Consultation request from " + $("#name").val()) + "&body=" + encodeURIComponent(body);
+      $status.addClass("ok").text("Your email app should open with the message ready to send.").show();
+      return;
+    }
+    var $btn = $("#send").prop("disabled", true).text("Sending…");
+    $.ajax({ url: FORM_ENDPOINT, method: "POST", data: data, dataType: "json", headers: { Accept: "application/json" } })
+      .done(function () {
+        $form[0].reset();
+        $status.addClass("ok").text("Thanks, your message has been sent. We’ll reply within one business day.").show();
+      })
+      .fail(function () {
+        $status.addClass("fail").text("The message didn’t send. Try again, or email " + RECIPIENT + " directly.").show();
+      })
+      .always(function () { $btn.prop("disabled", false).text("Send message"); });
+  });
+  $form.on("input", ".invalid input, .invalid textarea", validate);
+});
+</script>
+<script>
+/* Hero background: slowly drifting network of nodes */
+(function () {
+  var c = document.getElementById("net");
+  if (!c || !c.getContext) { return; }
+  var ctx = c.getContext("2d"), nodes = [], w = 0, h = 0, colors = {}, running = true, t = 0;
+  var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var LINK = 140;
+  function readColors() {
+    var cs = getComputedStyle(document.documentElement);
+    colors.a = cs.getPropertyValue("--accent").trim() || "#1f6f5c";
+    colors.s = cs.getPropertyValue("--signal").trim() || "#e0a526";
+  }
+  function size() {
+    var dpr = Math.min(window.devicePixelRatio || 1, 2), r = c.parentNode.getBoundingClientRect();
+    w = r.width; h = r.height;
+    c.width = w * dpr; c.height = h * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    var n = Math.max(28, Math.min(Math.round(w * h / 9500), 90));
+    nodes = [];
+    for (var i = 0; i < n; i++) {
+      nodes.push({ x: Math.random() * w, y: Math.random() * h, vx: (Math.random() - .5) * .3, vy: (Math.random() - .5) * .3,
+                   r: 1.5 + Math.random() * 2, hot: Math.random() < .07 });
+    }
+    draw();
+  }
+  function draw() {
+    ctx.clearRect(0, 0, w, h);
+    var i, j, a, b, dx, dy, d;
+    ctx.lineWidth = 1; ctx.strokeStyle = colors.a;
+    for (i = 0; i < nodes.length; i++) {
+      a = nodes[i];
+      for (j = i + 1; j < nodes.length; j++) {
+        b = nodes[j]; dx = a.x - b.x; dy = a.y - b.y; d = Math.sqrt(dx * dx + dy * dy);
+        if (d < LINK) {
+          ctx.globalAlpha = (1 - d / LINK) * .4;
+          ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+        }
+      }
+    }
+    for (i = 0; i < nodes.length; i++) {
+      a = nodes[i];
+      ctx.globalAlpha = a.hot ? .95 : .6;
+      ctx.fillStyle = a.hot ? colors.s : colors.a;
+      ctx.beginPath(); ctx.arc(a.x, a.y, a.hot ? a.r + 1.5 : a.r, 0, 6.2832); ctx.fill();
+      if (a.hot) {
+        ctx.globalAlpha = .35 * (1 - ((t / 90 + i) % 1));
+        ctx.strokeStyle = colors.s;
+        ctx.beginPath(); ctx.arc(a.x, a.y, 6 + ((t / 90 + i) % 1) * 14, 0, 6.2832); ctx.stroke();
+        ctx.strokeStyle = colors.a;
+      }
+    }
+    ctx.globalAlpha = 1;
+  }
+  function step() {
+    if (!running) { return; }
+    t++;
+    for (var i = 0; i < nodes.length; i++) {
+      var n = nodes[i]; n.x += n.vx; n.y += n.vy;
+      if (n.x < 0 || n.x > w) { n.vx *= -1; }
+      if (n.y < 0 || n.y > h) { n.vy *= -1; }
+    }
+    draw();
+    requestAnimationFrame(step);
+  }
+  readColors();
+  size();
+  var rt; window.addEventListener("resize", function () { clearTimeout(rt); rt = setTimeout(size, 150); });
+  if (window.matchMedia) {
+    var mq = matchMedia("(prefers-color-scheme: dark)");
+    var onTheme = function () { readColors(); draw(); };
+    if (mq.addEventListener) { mq.addEventListener("change", onTheme); }
+  }
+  if (!reduce) {
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (e) {
+        var vis = e[0].isIntersecting;
+        if (vis && !running) { running = true; requestAnimationFrame(step); } else if (!vis) { running = false; }
+      }).observe(c);
+    }
+    requestAnimationFrame(step);
+  }
+})();
+</script>
+</body>
+</html>
